@@ -2,12 +2,12 @@
 const {
   existPath,
   absolutePath,
-  isDirectory,
-  isFile,
+  // isDirectory,
+  // isFile,
   joinPaths,
-  readFile,
-  isFileMd,
-  contentFile,
+  readDirectory,
+  // isFileMd,
+  // contentFile,
 } = require('../src/index')
 
 
@@ -35,7 +35,7 @@ describe('absolutePath', () => {
   });
 });
 
-describe('isDirectory', () => {
+/* describe('isDirectory', () => {
   it('debería ser una función', () => {
     expect(typeof(isDirectory)).toBe('function');
   });
@@ -45,9 +45,9 @@ describe('isDirectory', () => {
   it('deberia retornar false si no es un directorio', () => {
     expect(isDirectory('README.md')).toBe(false);
   });
-});
+}); */
 
-describe('isFile', () => {
+/* describe('isFile', () => {
   it('debería ser una función', () => {
     expect(typeof(isFile)).toBe('function');
   });
@@ -57,7 +57,7 @@ describe('isFile', () => {
   it('deberia retornar false si no es un archivo', () => {
     expect(isFile('prueba')).toBe(false);
   });
-});
+}); */
 
 describe('joinPaths', () => {
   it('debería ser una función', () => {
@@ -69,16 +69,16 @@ describe('joinPaths', () => {
   });
 });
 
-describe('readFile', () => {
+describe('readDirectory', () => {
   it('debería ser una función', () => {
-    expect(typeof(readFile)).toBe('function');
+    expect(typeof(readDirectory)).toBe('function');
   });
   it('debería ser un array con los archivos del directorio', () => {
-    expect(readFile('prueba')).toEqual([ 'cursos', 'pruebaRecetas', 'README1.md' ]);
+    expect(readDirectory('prueba')).toEqual([ 'cursos', 'pruebaRecetas', 'README1.md' ]);
   });
 });
 
-describe('isFileMd', () => {
+/* describe('isFileMd', () => {
   it('debería ser una función', () => {
     expect(typeof(isFileMd)).toBe('function');
   });
@@ -88,13 +88,13 @@ describe('isFileMd', () => {
   it('deberia retornar false para la extension .js', () => {
     expect(isFileMd('index.js')).toBe(false);
   });
-});
+}); */
 
-describe('contentFile', () => {
+/* describe('contentFile', () => {
   it('debería ser una función', () => {
     expect(typeof(contentFile)).toBe('function');
   });
   it('deberia retornar el contenido del archivo', () => {
     expect(contentFile('prueba\\cursos\\README2.md')).toEqual(`[Markdown](https://es.wikipedia.org/wiki/Markdown)`);
   });
-});
+}); */
