@@ -7,7 +7,7 @@ const {
   joinPaths,
   readDirectory,
   // isFileMd,
-  // contentFile,
+  // readFile,
 } = require('../src/index')
 
 
@@ -74,7 +74,7 @@ describe('readDirectory', () => {
     expect(typeof(readDirectory)).toBe('function');
   });
   it('debería ser un array con los archivos del directorio', () => {
-    expect(readDirectory('prueba')).toEqual([ 'cursos', 'pruebaRecetas', 'README1.md' ]);
+    expect(readDirectory('prueba')).toEqual([ 'cursos', 'prueba.md', 'pruebaRecetas' ]);
   });
 });
 
@@ -90,11 +90,11 @@ describe('readDirectory', () => {
   });
 }); */
 
-/* describe('contentFile', () => {
+/* describe('readFile', () => {
   it('debería ser una función', () => {
-    expect(typeof(contentFile)).toBe('function');
+    expect(typeof(readFile)).toBe('function');
   });
   it('deberia retornar el contenido del archivo', () => {
-    expect(contentFile('prueba\\cursos\\README2.md')).toEqual(`[Markdown](https://es.wikipedia.org/wiki/Markdown)`);
+    expect(readFile('prueba\\cursos\\README2.md')).toEqual(`[Markdown](https://es.wikipedia.org/wiki/Markdown)`);
   });
 }); */
