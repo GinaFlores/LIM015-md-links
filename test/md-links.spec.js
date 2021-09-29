@@ -1,100 +1,80 @@
-// const mdLinks = require('../');
-const {
-  existPath,
-  absolutePath,
-  // isDirectory,
-  // isFile,
-  joinPaths,
-  readDirectory,
-  // isFileMd,
-  // readFile,
-} = require('../src/index')
+const api = require('../src/index.js');
 
-
-describe('existPath', () => {
-  it('debería ser una función', () => {
-    expect(typeof(existPath)).toBe('function');
+describe('Función que verifica la existencia de una ruta ', () => {
+  it('existPath() debe ser una función', () => {
+    expect(typeof(api.existPath)).toBe('function');
   });
-  it('deberia retornar true si la ruta existe', () => {
-    expect(existPath('prueba')).toBe(true);
+  it('debería retornar true si la ruta existe', () => {
+    expect(api.existPath('prueba')).toBe(true);
   });
-  it('deberia retornar false si la ruta no existe', () => {
-    expect(existPath('gitignore')).toBe(false);
+  it('debería retornar false si la ruta no existe', () => {
+    expect(api.existPath('gitignore')).toBe(false);
   });
 });
 
-describe('absolutePath', () => {
-  it('debería ser una función', () => {
-    expect(typeof(absolutePath)).toBe('function');
+describe('Función que verifica si es ruta absoluta y la convierte', () => {
+  it('absolutePath() debe ser una función', () => {
+    expect(typeof(api.absolutePath)).toBe('function');
   });
-  it('deberia retornar convertir la ruta absoluta', () => {
-    expect(absolutePath('README.md')).toBe('C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\README.md');
+  it('debería retornar la ruta absoluta', () => {
+    expect(api.absolutePath('C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\README.md')).toBe('C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\README.md');
   });
-  it('deberia retornar la ruta absoluta', () => {
-    expect(absolutePath('C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\README.md')).toBe('C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\README.md');
+  it('debería retornar la ruta absoluta convertida', () => {
+    expect(api.absolutePath('README.md')).toBe('C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\README.md');
   });
 });
 
-/* describe('isDirectory', () => {
-  it('debería ser una función', () => {
-    expect(typeof(isDirectory)).toBe('function');
-  });
-  it('deberia retornar true si es un directorio', () => {
-    expect(isDirectory('prueba')).toBe(true);
-  });
-  it('deberia retornar false si no es un directorio', () => {
-    expect(isDirectory('README.md')).toBe(false);
-  });
-}); */
-
-/* describe('isFile', () => {
-  it('debería ser una función', () => {
-    expect(typeof(isFile)).toBe('function');
-  });
-  it('debería retornar true si es un archivo', () => {
-    expect(isFile('README.md')).toBe(true);
-  });
-  it('deberia retornar false si no es un archivo', () => {
-    expect(isFile('prueba')).toBe(false);
-  });
-}); */
-
-describe('joinPaths', () => {
-  it('debería ser una función', () => {
-    expect(typeof(joinPaths)).toBe('function');
+describe('Función para unir dos rutas', () => {
+  it('joinPaths() debe ser una función', () => {
+    expect(typeof(api.joinPaths)).toBe('function');
   });
   it('debería retornar dos rutas unidas', () => {
     const result = '\\home\\Laboratoria\\test';
-    expect(joinPaths('/home/Laboratoria/', './test')).toBe(result);
+    expect(api.joinPaths('/home/Laboratoria/', './test')).toBe(result);
   });
 });
 
-describe('readDirectory', () => {
-  it('debería ser una función', () => {
-    expect(typeof(readDirectory)).toBe('function');
+describe('Función que encuentra la extension de un archivo .md', () => {
+  it('isFileMd() debe ser una función', () => {
+    expect(typeof(api.isFileMd)).toBe('function');
   });
-  it('debería ser un array con los archivos del directorio', () => {
-    expect(readDirectory('prueba')).toEqual([ 'cursos', 'prueba.md', 'pruebaRecetas' ]);
+  it('debería retornar true para la extension .md', () => {
+    expect(api.isFileMd('README.md')).toBe(true);
+  });
+  it('debería retornar false para la extension .js', () => {
+    expect(api.isFileMd('index.js')).toBe(false);
   });
 });
 
-/* describe('isFileMd', () => {
-  it('debería ser una función', () => {
-    expect(typeof(isFileMd)).toBe('function');
+describe('Función para recorrer directorio', () => {
+  it('getPathMd() debe ser una función', () => {
+    expect(typeof(api.getPathMd)).toBe('function');
   });
-  it('deberia retornar true para la extension .md', () => {
-    expect(isFileMd('README.md')).toBe(true);
+  it('debería retornar todos los archivos', () => {
+    expect(api.getPathMd('C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba')).toEqual([
+    'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\cursos\\cursos.md',
+    'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\prueba.md',
+    'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\pruebaRecetas\\recetas\\recetas.md',
+  ]);
   });
-  it('deberia retornar false para la extension .js', () => {
-    expect(isFileMd('index.js')).toBe(false);
+  it('debería retornar archivos .md', () => {
+    expect(api.getPathMd('C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\prueba.md')).toEqual(['C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\prueba.md']);
   });
-}); */
+});
 
-/* describe('readFile', () => {
-  it('debería ser una función', () => {
-    expect(typeof(readFile)).toBe('function');
+describe('Funcion para obtener enlace de un archivo', () => {
+  it('getLinks() debe ser una función', () => {
+    expect(typeof(api.getLinks)).toBe('function');
   });
-  it('deberia retornar el contenido del archivo', () => {
-    expect(readFile('prueba\\cursos\\README2.md')).toEqual(`[Markdown](https://es.wikipedia.org/wiki/Markdown)`);
+  it('debería devolver un array de objetos con tres propiedades: href, text y file', () => {
+    const pathFile = 'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\cursos\\cursos.md';
+    const result = [
+      {
+        href: 'https://es.wikipedia.org/wiki/Markdown',
+        text: 'Markdown',
+        file: 'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\cursos\\cursos.md'
+      }
+    ];
+    expect(api.getLinks(pathFile)).toEqual(result);
   });
-}); */
+});

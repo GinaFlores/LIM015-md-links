@@ -5,7 +5,7 @@ const fs = require('fs');
 // Validar si existe la ruta
 const existPath = (route) => fs.existsSync(route); // Retorna booleano
 
-// Verificar si es absoluta. Y si no lo es, convertirla a absoluta
+// Verificar si es absoluta. Caso contrario la convierte a absoluta
 const absolutePath = (route) => path.isAbsolute(route) ? (route) : path.resolve(route); // Retorna ruta absoluta
 
 // Verificar si es un directorio
@@ -19,14 +19,12 @@ const joinPaths = (route, route2) => path.join(route, route2);
 
 // Leer un directorio
 const readDirectory = (route) => fs.readdirSync(route); // Retorna array de archivos o carpetas que hay en el directorio
-// console.log(readDirectory('prueba'));
 
 // Leer extension md
 const isFileMd = (route) => (path.extname(route) === '.md'); // Retorna la extensión de la ruta
 
 // Lee contenido que hay dentro de un archivo
 const readFile = (route) => fs.readFileSync(route, 'utf-8');
-// console.log(readFile('prueba\\prueba.md'));
 
 // Función para recorrer directorio y obtener archivos .md
 const getPathMd = (route) => {
@@ -37,7 +35,7 @@ const getPathMd = (route) => {
             const joinRoute = path.join(route, element);
             arrayAllPath = arrayAllPath.concat(getPathMd(joinRoute));
         });
-    } else if (isFileMd(route)) {
+    } else if (isFile(route)) {
         arrayAllPath.push(route)
     }
     const arrayAllMd = arrayAllPath.filter((route) => isFileMd(route));
@@ -66,16 +64,16 @@ const getLinks = (route) => {
     }
     return linkArray;
 };
-getLinks('prueba\\prueba.md');
-// console.log(getLinks('prueba\\prueba.md'));
+getLinks('prueba\\cursos\\cursos.md');
+console.log(getLinks('prueba\\cursos\\cursos.md'));
 
 module.exports = {
     existPath,
     absolutePath,
-    // isDirectory,
-    // isFile,
     joinPaths,
     readDirectory,
-    // isFileMd,
+    isFileMd,
     // readFile,
+    getPathMd,
+    getLinks,
 }
