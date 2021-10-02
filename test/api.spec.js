@@ -1,4 +1,4 @@
-const api = require('../src/index.js');
+const api = require('../src/api.js');
 
 describe('Función que verifica la existencia de una ruta ', () => {
   it('existPath() debe ser una función', () => {
