@@ -1,3 +1,4 @@
+const fetch = require('../__mock__/mock_fetch.js');
 const api = require('../src/api.js');
 
 describe('Función que verifica la existencia de una ruta ', () => {
@@ -55,7 +56,7 @@ describe('Función para recorrer directorio', () => {
     'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\cursos\\cursos.md',
     'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\prueba.md',
     'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\pruebaRecetas\\recetas\\recetas.md',
-  ]);
+    ]);
   });
   it('debería retornar archivos .md', () => {
     expect(api.getPathMd('C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\prueba.md')).toEqual(['C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\prueba.md']);
@@ -76,5 +77,56 @@ describe('Funcion para obtener enlace de un archivo', () => {
       }
     ];
     expect(api.getLinks(pathFile)).toEqual(result);
+  });
+});
+
+const data = [
+  {
+    href: 'https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/',
+    text: 'Array - MDN',
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\prueba.md',
+  },
+];
+
+const dataError = [
+  {
+    href: 'https://facebook',
+    text: 'Facebook',
+    file: 'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\prueba.md',
+  },
+];
+
+describe('Funcion para validar links con fetch', () => {
+  it('validateLinks() debe ser una función', () => {
+    expect(typeof(api.validateLinks)).toBe('function');
+  });
+  it('debería validar datos', () => {
+    const output = [
+      {
+        file: 'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\prueba.md',
+        href: 'https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/',
+        message: 'Ok',
+        text: 'Array - MDN',
+        status: 200
+      },
+    ];
+    fetch.mockResolvedValue(data);
+    return api.validateLinks(data).then((e) => {
+      expect(e).toEqual(output);
+    });
+  });
+  it('debería obtener error al validar', () => {
+    const outputError = [
+      {
+        href: 'https://facebook',
+        status: 'No status',
+        file: 'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\prueba.md',
+        message: 'Fail request to https://facebook/ failed, reason: getaddrinfo ENOTFOUND facebook',
+      },
+    ];
+    fetch.mockResolvedValue(dataError);
+    return api.validateLinks(dataError).then((e) => {
+      expect(e).toEqual(outputError);
+    })
   });
 });

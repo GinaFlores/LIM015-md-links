@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const fetch = require('node-fetch');
+const { get } = require('http');
 // const userPath = process.argv[2];
 
 // Validar si existe la ruta
@@ -68,6 +69,7 @@ const getLinks = (route) => {
 // const pruebita1 = getLinks('C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\cursos\\cursos.md');
 // const pruebita2 = getLinks('C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\prueba.md');
 // const pruebita3 = getLinks('C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\pruebaRecetas\\recetas\\recetas.md');
+// console.log(pruebita2);
 
 // Función para validar los links
 const validateLinks = (arrayLink) => {
@@ -95,15 +97,15 @@ const validateLinks = (arrayLink) => {
         });
     });
     return Promise.all(arrStatus)
-    .then((res) => {
+    /* .then((res) => {
         console.log(res)
     })
     .catch((err) => {
         console.log(err)
-    })
+    }) */
 };
 // validateLinks(pruebita1);
-// validateLinks(pruebita2);
+// validateLinks(pruebita2)
 // validateLinks(pruebita3);
 
 module.exports = {
