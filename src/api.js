@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const fetch = require('node-fetch');
-const { get } = require('http');
+// const { get } = require('http');
 // const userPath = process.argv[2];
 
 // Validar si existe la ruta
@@ -43,8 +43,8 @@ const getPathMd = (route) => {
     const arrayAllMd = arrayAllPath.filter((route) => isFileMd(route));
     return arrayAllMd;
 };
-// const prueba1 = 'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba';
-// console.log(getPathMd(prueba1));
+const prueba1 = 'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\prueba.md';
+console.log(getPathMd(prueba1), 'directorio');
 
 // Función para extraer links
 const regEx = /!*\[(.+?)\]\((https?.+?)\)/gi;
@@ -114,7 +114,6 @@ module.exports = {
     joinPaths,
     readDirectory,
     isFileMd,
-    // readFile,
     getPathMd,
     getLinks,
     validateLinks,
