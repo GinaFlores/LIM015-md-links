@@ -1,7 +1,6 @@
 const path = require('path');
 const fs = require('fs');
 const fetch = require('node-fetch');
-// const { get } = require('http');
 // const userPath = process.argv[2];
 
 // Validar si existe la ruta
@@ -43,8 +42,6 @@ const getPathMd = (route) => {
     const arrayAllMd = arrayAllPath.filter((route) => isFileMd(route));
     return arrayAllMd;
 };
-const prueba1 = 'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\prueba.md';
-console.log(getPathMd(prueba1), 'directorio');
 
 // Función para extraer links
 const regEx = /!*\[(.+?)\]\((https?.+?)\)/gi;
@@ -66,10 +63,8 @@ const getLinks = (route) => {
     }
     return linkArray;
 };
-// const pruebita1 = getLinks('C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\cursos\\cursos.md');
-// const pruebita2 = getLinks('C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\prueba.md');
-// const pruebita3 = getLinks('C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\pruebaRecetas\\recetas\\recetas.md');
-// console.log(pruebita2);
+// const pruebita1 = getLinks('C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\prueba.md');
+// console.log(pruebita1);
 
 // Función para validar los links
 const validateLinks = (arrayLink) => {
@@ -97,16 +92,14 @@ const validateLinks = (arrayLink) => {
         });
     });
     return Promise.all(arrStatus)
-    /* .then((res) => {
+    .then((res) => {
         console.log(res)
     })
     .catch((err) => {
         console.log(err)
-    }) */
+    })
 };
-// validateLinks(pruebita1);
-// validateLinks(pruebita2)
-// validateLinks(pruebita3);
+// validateLinks(pruebita1)
 
 module.exports = {
     existPath,

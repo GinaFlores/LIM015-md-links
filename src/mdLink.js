@@ -11,9 +11,7 @@ const mdLink  = (route, option = {}) =>
             allPaths.forEach(element => {
                 const proLink = api.getLinks(element);
                 arrayAllObject = arrayAllObject.concat(proLink);
-                // console.log(proLink);
             })
-            // console.log(arrayAllObject);
             if (!(option.validate)) {
                 resolve(arrayAllObject);
             }
@@ -25,7 +23,6 @@ const mdLink  = (route, option = {}) =>
     });
 
 const pruebaResultado = mdLink('C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba', { validate: true });
-// const pruebaResul = mdLink('C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\prueba.md', { validate: true });
 pruebaResultado
 .then((res) => console.log(res))
 .catch((error) => console.log(error));
