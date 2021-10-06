@@ -4,8 +4,8 @@ const api = require('../src/api.js');
 const mdLink  = (route, option = {}) =>
     new Promise ((resolve, reject) => {
         if(!api.existPath(route)) {
-            reject('No existe la ruta, vuelve a intentarlo');
-        } else  {
+            reject('La ruta no existe');
+        } else {
             const allPaths = api.getPathMd(route);
             let arrayAllObject = [];
             allPaths.forEach(element => {
@@ -22,7 +22,9 @@ const mdLink  = (route, option = {}) =>
         }
     });
 
-const pruebaResultado = mdLink('C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba', { validate: true });
+/* const pruebaResultado = mdLink('C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\cursos\\curso.js', { validate: true });
 pruebaResultado
 .then((res) => console.log(res))
-.catch((error) => console.log(error));
+.catch((error) => console.log(error)); */
+
+module.exports = { mdLink }

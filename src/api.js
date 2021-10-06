@@ -92,12 +92,12 @@ const validateLinks = (arrayLink) => {
         });
     });
     return Promise.all(arrStatus)
-    .then((res) => {
+    /*.then((res) => {
         console.log(res)
     })
     .catch((err) => {
         console.log(err)
-    })
+    }) */
 };
 // validateLinks(pruebita1)
 
