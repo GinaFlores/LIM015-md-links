@@ -1,7 +1,7 @@
-const api = require('../src/api.js');
+const api = require('./api.js');
 
 // Función mdLink validate options
-const mdLink  = (route, option = {}) =>
+const mdLinks  = (route, option = {}) =>
     new Promise ((resolve, reject) => {
         if(!api.existPath(route)) {
             reject('La ruta no existe');
@@ -22,9 +22,4 @@ const mdLink  = (route, option = {}) =>
         }
     });
 
-/* const pruebaResultado = mdLink('C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\cursos\\curso.js', { validate: true });
-pruebaResultado
-.then((res) => console.log(res))
-.catch((error) => console.log(error)); */
-
-module.exports = { mdLink }
+module.exports = { mdLinks }

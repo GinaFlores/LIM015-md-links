@@ -103,11 +103,11 @@ describe('Funcion para validar links con fetch', () => {
   it('debería validar datos', () => {
     const output = [
       {
-        file: 'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\prueba.md',
         href: 'https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/Array/',
-        message: 'Ok',
         text: 'Array - MDN',
-        status: 200
+        file: 'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\prueba.md',
+        status: 200,
+        message: 'Ok',
       },
     ];
     fetch.mockResolvedValue(data);
@@ -119,9 +119,10 @@ describe('Funcion para validar links con fetch', () => {
     const outputError = [
       {
         href: 'https://facebook',
-        status: 'No status',
+        text: 'Facebook',
         file: 'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\prueba.md',
-        message: 'Fail request to https://facebook/ failed, reason: getaddrinfo ENOTFOUND facebook',
+        status: 'No status request to https://facebook/ failed, reason: getaddrinfo ENOTFOUND facebook',
+        message: 'Fail',
       },
     ];
     fetch.mockResolvedValue(dataError);

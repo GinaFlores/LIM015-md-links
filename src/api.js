@@ -63,8 +63,6 @@ const getLinks = (route) => {
     }
     return linkArray;
 };
-// const pruebita1 = getLinks('C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\prueba.md');
-// console.log(pruebita1);
 
 // Función para validar los links
 const validateLinks = (arrayLink) => {
@@ -73,33 +71,27 @@ const validateLinks = (arrayLink) => {
         .then((result) => {
             const statusText = result.status === 200 ? 'Ok' : 'Fail';
             const data = {
-                file: link.file,
                 href: link.href,
-                message: statusText,
                 text: (link.text.slice(0, 50)), // Para limitar el texto a 50 caracteres
+                file: link.file,
                 status: result.status,
+                message: statusText,
             };
             return data;
         })
         .catch((error) => {
             const data = {
                 href: link.href,
-                status: 'No status',
+                text: link.text,
                 file: link.file,
-                message: `Fail ${error.message}`,
+                status: `No status ${error.message}`,
+                message: 'Fail',
             };
             return data;
         });
     });
     return Promise.all(arrStatus)
-    /*.then((res) => {
-        console.log(res)
-    })
-    .catch((err) => {
-        console.log(err)
-    }) */
 };
-// validateLinks(pruebita1)
 
 module.exports = {
     existPath,
