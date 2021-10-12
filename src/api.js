@@ -67,7 +67,7 @@ const getLinks = (route) => {
             console.log(errorRoute);
         }
     })
-    return linkArray;
+    return linkArray.length !== 0 ? linkArray : ' '
 };
 
 // Función para validar los links
