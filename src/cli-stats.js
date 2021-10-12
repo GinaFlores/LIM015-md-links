@@ -1,5 +1,3 @@
-// #!/usr/bin/env node
-
 // Total de links y total de links únicos
 const statsLinks = (array) => {
     const totalLinks = array.length;
@@ -10,8 +8,8 @@ const statsLinks = (array) => {
 
 // Total de links rotos
 const brokenLinks = (array) => {
-    const msgLinks = array.map(link => link.message)
-    const broken = msgLinks.filter(link => link.message === 'Fail')
+    // const msgLinks = array.map(link => link.message)
+    const broken = array.filter(link => link.message === 'Fail')
     const stats = `Broken: ${broken.length}`;
     return stats;
 }

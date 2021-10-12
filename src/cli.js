@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const { mdLinks } = require('../src/mdLinks.js');
-const { statsLinks, brokenLinks, help, errorRoute, notExist } = require('../src/cli-stats.js');
+const { statsLinks, brokenLinks, help, /* errorRoute */ notExist } = require('../src/cli-stats.js');
 const chalk = require('chalk');
 
 // console.log(process.argv);
@@ -16,29 +16,29 @@ if (options.length === 1) {
     .catch((rej) => {
         if (rej === 'La ruta no existe') {
             console.log(chalk.magentaBright(notExist));
-        } else {
+        }/*  else {
             console.log(chalk.cyanBright(errorRoute));
-        }
+        } */
     })
 } else {
-    if (validate && stats) {
+    if (validate && stats || stats && validate) {
         mdLinks(userPath, {validate:true})
         .then(res => {
             console.table(chalk.greenBright(statsLinks(res)))
             console.table(chalk.redBright(brokenLinks(res)))
         })
-        .catch(() => console.log(chalk.cyanBright(errorRoute)))
+        // .catch(() => console.log(chalk.cyanBright(errorRoute)))
     } else if (validate) {
         mdLinks(userPath, {validate:true})
         .then(res => console.log(res))
-        .catch(()=> console.log(chalk.cyanBright(errorRoute)))
+        // .catch(()=> console.log(chalk.cyanBright(errorRoute)))
     } else if (stats) {
         mdLinks(userPath, {validate:true})
         .then(res => console.table(chalk.greenBright(statsLinks(res))))
-        .catch(()=> console.log(chalk.cyanBright(errorRoute)))
+        // .catch(()=> console.log(chalk.cyanBright(errorRoute)))
     } else {
         mdLinks(userPath, {validate:true})
         .then( console.log(chalk.cyanBright(help)))
-        .catch(()=>console.log(chalk.cyanBright(errorRoute)))
+        // .catch(()=>console.log(chalk.cyanBright(errorRoute)))
     }
 }
