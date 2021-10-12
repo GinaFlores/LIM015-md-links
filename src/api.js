@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const fetch = require('node-fetch');
+const { errorRoute } = require('./cli-stats.js');
 // const userPath = process.argv[2];
 
 // Validar si existe la ruta
@@ -49,18 +50,23 @@ const regExLink = /\((https?.+?)\)/gi;
 const regExText = /\[[^\s]+(.+?)\]/gi;
 
 const getLinks = (route) => {
-    const fileMdContent = readFile(route).match(regEx);
-    let linkArray = [];
-    if (fileMdContent !== null) {
-        fileMdContent.forEach((link) => {
-            const linkObject = {
-                href: link.match(regExLink).join().slice(1,-1),
-                text: link.match(regExText).join().slice(1,-1),
-                file: route,
-            };
-            linkArray.push(linkObject);
-        });
-    }
+    const linkArray = [];
+    getPathMd(route).forEach((element) => {
+        const fileMdContent = readFile(element);
+        const fileLink = fileMdContent.match(regEx);
+        if (fileMdContent.length > 0 && regEx.test(fileMdContent) === true) {
+            fileLink.forEach((link) => {
+                const linkObject = {
+                    href: link.match(regExLink).join().slice(1,-1),
+                    text: link.match(regExText).join().slice(1,-1),
+                    file: element,
+                };
+                linkArray.push(linkObject);
+            });
+        } else if (!regEx.test(fileMdContent)) {
+            console.log(errorRoute);
+        }
+    })
     return linkArray;
 };
 

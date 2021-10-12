@@ -1,4 +1,5 @@
 const api = require('./api.js');
+// const { errorRoute } = require('./cli-stats.js');
 
 // Función mdLink validate options
 const mdLinks  = (route, option = {}) =>
@@ -6,12 +7,7 @@ const mdLinks  = (route, option = {}) =>
         if(!api.existPath(route)) {
             reject('La ruta no existe');
         } else {
-            const allPaths = api.getPathMd(route);
-            let arrayAllObject = [];
-            allPaths.forEach(element => {
-                const proLink = api.getLinks(element);
-                arrayAllObject = arrayAllObject.concat(proLink);
-            })
+            const arrayAllObject = api.getLinks(route);
             if (!(option.validate)) {
                 resolve(arrayAllObject);
             }
