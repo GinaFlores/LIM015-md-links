@@ -1,5 +1,6 @@
 const fetch = require('../__mock__/mock_fetch.js');
 const api = require('../src/api.js');
+// const { errorRoute } = require('../src/cli-stats.js');
 
 describe('Función que verifica la existencia de una ruta ', () => {
   it('existPath() debe ser una función', () => {
@@ -47,19 +48,32 @@ describe('Función que encuentra la extension de un archivo .md', () => {
   });
 });
 
+const pathDirectory = 'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba'
+const pathMd = 'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\prueba.md'
+const result = [
+  'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\cursos\\cursos.md',
+  'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\prueba.md',
+  'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\pruebaRecetas\\recetas\\recetas.md'
+];
+
 describe('Función para recorrer directorio', () => {
-  it('getPathMd() debe ser una función', () => {
+/*   it('getPathMd() debe ser una función', () => {
     expect(typeof(api.getPathMd)).toBe('function');
   });
   it('debería retornar todos los archivos', () => {
-    expect(api.getPathMd('C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba')).toEqual([
-    'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\cursos\\cursos.md',
-    'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\prueba.md',
-    'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\pruebaRecetas\\recetas\\recetas.md',
-    ]);
+    expect(api.getPathMd(pathDirectory)).toEqual(result);
   });
   it('debería retornar archivos .md', () => {
-    expect(api.getPathMd('C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\prueba.md')).toEqual(['C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\prueba.md']);
+    expect(api.getPathMd(pathMd)).toEqual([pathMd]);
+  }); */
+  it('debería retornar un array con los archivos .md', () => {
+    const pathDirectory = 'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba'
+    const result = [
+      'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\cursos\\cursos.md',
+      'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\prueba.md',
+      'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\pruebaRecetas\\recetas\\recetas.md'
+    ];
+    expect(api.getPathMd(pathDirectory)).toEqual(result);
   });
 });
 
@@ -78,6 +92,24 @@ describe('Funcion para obtener enlace de un archivo', () => {
     ];
     expect(api.getLinks(pathFile)).toEqual(result);
   });
+  it('debería devolver mensaje que no hay links', () => {
+    const errorPath = 'C:\\Users\\Laboratoria\\OneDrive\\Documentos\\Laboratoria015\\LIM015-md-links\\prueba\\pruebaRecetas\\recetas\\recetas.md';
+/*     const message = `
+    ──────────────────────────────────────────────────────────────────────────────────
+    ──────────────────────────────────▄▀▄─────▄▀▄─────────────────────────────────────
+    ─────────────────────────────────▄█░░▀▀▀▀▀░░█▄────────────────────────────────────
+    ─────────────────────────────▄▄──█░░░░░░░░░░░█──▄▄────────────────────────────────
+    ────────────────────────────█▄▄█─█░░▀░░┬░░▀░░█─█▄▄█───────────────────────────────
+    ███╗░░██╗░█████╗░  ██╗░░██╗░█████╗░██╗░░░██╗  ██╗░░░░░██╗███╗░░██╗██╗░░██╗░██████╗
+    ████╗░██║██╔══██╗  ██║░░██║██╔══██╗╚██╗░██╔╝  ██║░░░░░██║████╗░██║██║░██╔╝██╔════╝
+    ██╔██╗██║██║░░██║  ███████║███████║░╚████╔╝░  ██║░░░░░██║██╔██╗██║█████═╝░╚█████╗░
+    ██║╚████║██║░░██║  ██╔══██║██╔══██║░░╚██╔╝░░  ██║░░░░░██║██║╚████║██╔═██╗░░╚═══██╗
+    ██║░╚███║╚█████╔╝  ██║░░██║██║░░██║░░░██║░░░  ███████╗██║██║░╚███║██║░╚██╗██████╔╝
+    ╚═╝░░╚══╝░╚════╝░  ╚═╝░░╚═╝╚═╝░░╚═╝░░░╚═╝░░░  ╚══════╝╚═╝╚═╝░░╚══╝╚═╝░░╚═╝╚═════╝░
+    ──────────────────────────────────────────────────────────────────────────────────
+    ` */
+    expect(api.getLinks(errorPath)).toEqual([]);
+  })
 });
 
 const data = [
