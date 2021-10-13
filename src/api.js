@@ -2,6 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const fetch = require('node-fetch');
 const { errorRoute } = require('./cli-stats.js');
+const chalk = require('chalk');
 // const userPath = process.argv[2];
 
 // Validar si existe la ruta
@@ -64,7 +65,7 @@ const getLinks = (route) => {
                 linkArray.push(linkObject);
             });
         } else if (!regEx.test(fileMdContent)) {
-            console.log(errorRoute);
+            console.log(chalk.yellowBright(errorRoute));
         }
     })
     return linkArray.length !== 0 ? linkArray : ' '

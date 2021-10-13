@@ -1,23 +1,6 @@
 # Markdown Links
 
-## Índice
-
-- [1. Preámbulo](#1-preámbulo)
-- [2. Resumen del proyecto](#2-resumen-del-proyecto)
-- [3. Objetivos de aprendizaje](#3-objetivos-de-aprendizaje)
-- [4. Consideraciones generales](#4-consideraciones-generales)
-- [5. Criterios de aceptación mínimos del proyecto](#5-criterios-de-aceptación-mínimos-del-proyecto)
-- [6. Entregables](#6-entregables)
-- [7. Hacker edition](#7-hacker-edition)
-- [8. Pistas, tips y lecturas complementarias](#8-pistas-tips-y-lecturas-complementarias)
-- [9. Checklist](#9-checklist)
-- [10. Achicando el problema](#10-achicando-el-problema)
-
----
-
-## 1. Preámbulo
-
-[Markdown](https://es.wikipedia.org/wiki/Markdown) es un lenguaje de marcado
+Markdown es un lenguaje de marcado
 ligero muy popular entre developers. Es usado en muchísimas plataformas que
 manejan texto plano (GitHub, foros, blogs, ...), y es muy común
 encontrar varios archivos en ese formato en cualquier tipo de repositorio
@@ -27,84 +10,39 @@ Estos archivos `Markdown` normalmente contienen _links_ (vínculos/ligas) que
 muchas veces están rotos o ya no son válidos y eso perjudica mucho el valor de
 la información que se quiere compartir.
 
-Dentro de una comunidad de código abierto, nos han propuesto crear una
-herramienta usando [Node.js](https://nodejs.org/), que lea y analice archivos
-en formato `Markdown`, para verificar los links que contengan y reportar
-algunas estadísticas.
+## 2. Diagrama de Flujo
 
-![md-links](https://user-images.githubusercontent.com/110297/42118443-b7a5f1f0-7bc8-11e8-96ad-9cc5593715a6.jpg)
+Para poder realizar esta librería, se realizaron 2 diagramas de flujo para cada tipo.
 
-## 2. Resumen del proyecto
+### 1) API
 
-[Node.js](https://nodejs.org/es/) es un entorno de ejecución para JavaScript
-construido con el [motor de JavaScript V8 de Chrome](https://developers.google.com/v8/).
-Esto nos va a permitir ejecutar JavaScript en el entorno del sistema operativo,
-ya sea tu máquina o un servidor, lo cual nos abre las puertas para poder
-interactuar con el sistema en sí, archivos, redes, ...
+![Diagrama api](./img/api.png)
 
-En este proyecto nos alejamos un poco del navegador para construir un programa
-que se ejecute usando Node.js, donde aprenderemos sobre cómo interactuar con el
-sistema archivos, con el entorno (_proceso_, _env_, _stdin/stdout/stderr_), ...
+### 2) CLI (Command Line Interface - Interfaz de Línea de Comando)
 
-En este proyecto crearás una herramienta de línea de comando (CLI) así como tu
-propia librería (o biblioteca - library) en JavaScript.
+![Diagrama cli](./img/cli.png)
 
-Diseñar tu propia librería es una experiencia fundamental para cualquier
-desarrollador porque que te obliga a pensar en la interfaz (API) de tus
-_módulos_ y cómo será usado por otros developers. Debes tener especial
-consideración en peculiaridades del lenguaje, convenciones y buenas prácticas.
+## 3. Instalación
 
-## 3. Objetivos de aprendizaje
+Por npm:
 
+`$ npm i md-links-lim015`
 
-## 4. Consideraciones generales
+Por repo de github:
 
+`npm i --global GinaFlores/LIM015-md-links`
 
+## 4. Guía de Uso
 
-## 5. Criterios de aceptación mínimos del proyecto
+### API
 
+Para acceder a `mdLinks`, debemos importarla con
 
+`const mdLinks = require('md-links-lim015')`
 
-## Este proyecto consta de DOS partes
+Esta es una promesa que recibe dos parámetros: `path` (ruta absoluta o relativa) y `option`, retornando un array de objetos por cada link encontrado con sus propiedades (href, text y file).
 
-### 1) JavaScript API
-
-El módulo debe poder **importarse** en otros scripts de Node.js y debe ofrecer la
-siguiente interfaz:
-
-#### `mdLinks(path, options)`
-
-##### Argumentos
-
-- `path`: Ruta **absoluta** o **relativa** al **archivo** o **directorio**.
-  Si la ruta pasada es relativa, debe resolverse como relativa al directorio
-  desde donde se invoca node - _current working directory_).
-- `options`: Un objeto con **únicamente** la siguiente propiedad:
-  - `validate`: Booleano que determina si se desea validar los links
-    encontrados.
-
-##### Valor de retorno
-
-La función debe **retornar una promesa** (`Promise`) que **resuelva a un arreglo**
-(`Array`) de objetos (`Object`), donde cada objeto representa un link y contiene
-las siguientes propiedades
-
-Con `validate:false` :
-
-- `href`: URL encontrada.
-- `text`: Texto que aparecía dentro del link (`<a>`).
-- `file`: Ruta del archivo donde se encontró el link.
-
-Con `validate:true` :
-
-- `href`: URL encontrada.
-- `text`: Texto que aparecía dentro del link (`<a>`).
-- `file`: Ruta del archivo donde se encontró el link.
-- `status`: Código de respuesta HTTP.
-- `ok`: Mensaje `fail` en caso de fallo u `ok` en caso de éxito.
-
-#### Ejemplo (resultados como comentarios)
-
+#### Ejemplos de uso:
 ```js
 const mdLinks = require("md-links");
 
@@ -127,75 +65,39 @@ mdLinks("./some/dir")
   .catch(console.error);
 ```
 
-### 2) CLI (Command Line Interface - Interfaz de Línea de Comando)
+### CLI
 
-El ejecutable de nuestra aplicación debe poder ejecutarse de la siguiente
-manera a través de la **terminal**:
+En la línea de interfaz de comando (CLI), se coloca lo siguiente:
 
 `md-links <path-to-file> [options]`
 
-Por ejemplo:
+- Si pasamos la ruta sin opciones, retornará el href, text, file de cada uno de los links encontrados.
 
-```sh
-$ md-links ./some/example.md
-./some/example.md http://algo.com/2/3/ Link a algo
-./some/example.md https://otra-cosa.net/algun-doc.html algún doc
-./some/example.md http://google.com/ Google
-```
+![Ruta sin opciones](./img/sin-opciones.png)
 
-El comportamiento por defecto no debe validar si las URLs responden ok o no,
-solo debe identificar el archivo markdown (a partir de la ruta que recibe como
-argumento), analizar el archivo Markdown e imprimir los links que vaya
-encontrando, junto con la ruta del archivo donde aparece y el texto
-que hay dentro del link (truncado a 50 caracteres).
+- Si pasamos la opción `--validate`, retornará el href, texto y file de los links encontrados, además del status (200, 404) y su mensaje respectivo (ok o fail).
 
-#### Options
+![Ruta con opción validate](./img/opcion-validate.png)
 
-##### `--validate`
+- Si pasamos la opción `--stats`, el resultado serán el total de links encontrados y los links únicos (sin repetir).
 
-Si pasamos la opción `--validate`, el módulo debe hacer una petición HTTP para
-averiguar si el link funciona o no. Si el link resulta en una redirección a una
-URL que responde ok, entonces consideraremos el link como ok.
+![Ruta con opción stats](./img/opcion-stats.png)
 
-Por ejemplo:
+- Si pasamos la opción (`--stats --validate`) o (`--validate --stats`) arrojará la cantidad total de links, así como de los links sin repetir y de los que estén rotos
 
-```sh
-$ md-links ./some/example.md --validate
-./some/example.md http://algo.com/2/3/ ok 200 Link a algo
-./some/example.md https://otra-cosa.net/algun-doc.html fail 404 algún doc
-./some/example.md http://google.com/ ok 301 Google
-```
+![Ruta con opción validate y stats](./img/opcion-validate-y-stats.png)
 
-Vemos que el _output_ en este caso incluye la palabra `ok` o `fail` después de
-la URL, así como el status de la respuesta recibida a la petición HTTP a dicha
-URL.
+- Si pasamos la ruta que no contiene links, la consola arrojará el mensaje siguiente:
 
-##### `--stats`
+![Ruta sin links](./img/no-hay-links.png)
 
-Si pasamos la opción `--stats` el output (salida) será un texto con estadísticas
-básicas sobre los links.
+- Si pasamos la ruta mal escrita, la consola arrojará el mensaje siguiente:
 
-```sh
-$ md-links ./some/example.md --stats
-Total: 3
-Unique: 3
-```
+![Ruta no exite](./img/no-existe-la-ruta.png)
 
-También podemos combinar `--stats` y `--validate` para obtener estadísticas que
-necesiten de los resultados de la validación.
+- Si pasamos la ruta bien escrita con alguna opción no válida, la consola arrojará lo siguiente:
 
-```sh
-$ md-links ./some/example.md --stats --validate
-Total: 3
-Unique: 3
-Broken: 1
-```
+![Mensaje de ayuda](./img/mensaje-ayuda.png)
 
-## 6. Entregables
-
-
-
-## 7. Hacker edition
-
-
-## 9. Checklist
+## 5. Autora
+Gina Gonzales Flores - Lim015 Laboratoria
